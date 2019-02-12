@@ -7,6 +7,6 @@ class DefaultDb : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=blogging.db");
+        optionsBuilder.UseSqlite("Data Source=test.db");
     }
 }

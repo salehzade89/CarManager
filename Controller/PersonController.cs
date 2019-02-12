@@ -8,7 +8,7 @@ public class PersonController : Controller
         using (var db = new DefaultDb())
         {
             db.People.Add(new Person {PersonId=1, Name = "asdf" });
-            db.SaveChanges();
+          //  db.SaveChanges();
         }
     }
 
