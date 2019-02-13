@@ -10,14 +10,15 @@ namespace CarManagerServer.Migrations
                 name: "Cars",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    CarId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Number = table.Column<string>(nullable: true),
-                    PersonId = table.Column<int>(nullable: false)
+                    Color = table.Column<string>(nullable: true),
+                    PersonId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.PrimaryKey("PK_Cars", x => x.CarId);
                 });
 
             migrationBuilder.CreateTable(
@@ -29,7 +30,7 @@ namespace CarManagerServer.Migrations
                     Name = table.Column<string>(nullable: true),
                     Surname = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
-                    CarId = table.Column<int>(nullable: false)
+                    CarId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,7 +1,8 @@
-class Car
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class Car
 {
-    public int Id { get; set; }
+    public int CarId { get; set; }
     public string Number { get; set; }
-    public int PersonId { get; set; }
-   // public Person Person { get; set; }
+    public string Color { get; set; }
 }

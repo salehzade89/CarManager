@@ -1,26 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Linq;
 
 public class PersonController : Controller
 {
-
-    public PersonController()
+    IDataContext _dataContext;
+    public PersonController(IDataContext dataContext)
     {
-        using (var db = new DefaultDb())
-        {
-            db.People.Add(new Person {PersonId=1, Name = "asdf" });
-          //  db.SaveChanges();
-        }
+        _dataContext = dataContext;
+        //_personRepository.UpdatePerson(new Person { Name = "asdf" });
     }
 
     [HttpGet]
     [HttpPost]
-    public string[] GetPersons()
+    public Person[] GetPersons()
     {
-        Person tmp;
-        using (var db = new DefaultDb())
-        {
-            tmp = db.People.Find(1);
-        }
-        return new[] { tmp.Name, "B" };
+        return _dataContext.PersonRepository.GetPeople().ToArray();
+    }
+  //  [HttpGet]
+    [HttpPost]
+    public int AddPerson([FromBody]Person person)
+    {
+        if (!ModelState.IsValid || person == null) return 0;
+
+        _dataContext.PersonRepository.UpdatePerson(person);
+        _dataContext.Save();
+        var id = person.PersonId;
+
+         return id;
+    }
+
+    [HttpPost]
+    public int DeletePerson([FromBody]int id)
+    {
+        var res = _dataContext.PersonRepository.DeletePerson(id);
+        _dataContext.Save();
+        return res;
     }
 }
