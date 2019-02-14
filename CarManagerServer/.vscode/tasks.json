@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/CarManagerServer/CarManagerServer.csproj"
+                "${workspaceFolder}/CarManagerServer.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

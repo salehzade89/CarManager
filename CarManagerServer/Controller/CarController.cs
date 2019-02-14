@@ -8,7 +8,6 @@ public class CarController : Controller
     public CarController(IDataContext dataContext)
     {
         _dataContext = dataContext;
-        //_personRepository.UpdatePerson(new Person { Name = "asdf" });
     }
     [HttpGet]
     [HttpPost]
@@ -18,13 +17,19 @@ public class CarController : Controller
     }
 
     [HttpPost]
-    public int AddCar([FromBody]Car car)
+    public int UpdateCar([FromBody]Car car)
     {
         if (!ModelState.IsValid || car == null) return 0;
         _dataContext.CarRepository.UpdateCar(car);
         _dataContext.Save();
         var id = car.CarId;
         return id;
+    }
+
+    [HttpPost]
+    public Car GetCarById([FromBody]int id)
+    {
+        return _dataContext.CarRepository.GetCarById(id);
     }
 
     [HttpPost]

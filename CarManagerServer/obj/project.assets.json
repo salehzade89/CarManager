@@ -12514,11 +12514,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User-2\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
+      "projectUniqueName": "c:\\Users\\User-2\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
       "projectName": "CarManagerServer",
-      "projectPath": "C:\\Users\\User-2\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
+      "projectPath": "c:\\Users\\User-2\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
       "packagesPath": "C:\\Users\\User-2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User-2\\Desktop\\CarManager\\CarManagerServer\\obj\\",
+      "outputPath": "c:\\Users\\User-2\\Desktop\\CarManager\\CarManagerServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User-2\\AppData\\Roaming\\NuGet\\NuGet.Config"
