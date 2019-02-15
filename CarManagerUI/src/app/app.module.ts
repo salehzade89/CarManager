@@ -7,6 +7,9 @@ import { PersonsComponent } from './component/persons/persons.component';
 import { CarsComponent } from './component/cars/cars.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { FooterComponent } from './component/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule
   ],
   providers: [],
   bootstrap: [AppComponent]
