@@ -1,8 +1,6 @@
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let car of cars">
-      <!-- <a routerLink="/detail/{{car.id}}"> -->
-        {{car.number}} {{car.color}}
-      <!-- </a> -->
-      <!-- <button class="delete" title="delete hero" (click)="delete(hero)">x</button> -->
+       Number : {{car.number}} Color : {{car.color}}
+       <button class="btn btn-primary" type="submit"><i class="fas fa-trash"></i></button>
     </li>
   </ul>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,21 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+  setButtonStyle(): void {
+    if (this.router.url == "/persons") {
+      this.person = true;
+      this.car = false;
+    }
+    else if (this.router.url == "/cars") {
+      this.person = false;
+      this.car = true;
+    }
+  }
+  person: boolean;
+  car: boolean;
+  personButtonClick(): void {
+    this.setButtonStyle();
 
-  person:boolean;
-  car:boolean;
-  personButtonClick():void{
-    this.person = true;
-    this.car= false;
   }
 
-  carButtonClick():void{
-    this.person = false;
-    this.car= true;
+  carButtonClick(): void {
+    this.setButtonStyle();
+
   }
   ngOnInit() {
-    this.person = true;
-    this.car= false;
+    this.setButtonStyle();
   }
 }
