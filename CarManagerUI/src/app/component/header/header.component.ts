@@ -9,7 +9,19 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  person:boolean;
+  car:boolean;
+  personButtonClick():void{
+    this.person = true;
+    this.car= false;
   }
 
+  carButtonClick():void{
+    this.person = false;
+    this.car= true;
+  }
+  ngOnInit() {
+    this.person = true;
+    this.car= false;
+  }
 }

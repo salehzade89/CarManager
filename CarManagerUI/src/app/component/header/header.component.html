@@ -1,0 +1,8 @@
+<ul class="nav nav-pills nav-fill">
+    <li (click)="personButtonClick()" class="nav-item">
+        <a class="nav-link" [class.active]=" person" routerLink="persons">Persons</a>
+    </li>
+    <li (click)="carButtonClick()" class="nav-item">
+        <a class="nav-link" [class.active]="car" routerLink="cars">Cars</a>
+    </li>
+</ul>

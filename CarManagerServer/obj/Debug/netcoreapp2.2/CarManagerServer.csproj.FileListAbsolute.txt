@@ -1,0 +1,14 @@
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\bin\Debug\netcoreapp2.2\CarManagerServer.deps.json
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\bin\Debug\netcoreapp2.2\CarManagerServer.runtimeconfig.json
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\bin\Debug\netcoreapp2.2\CarManagerServer.runtimeconfig.dev.json
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\bin\Debug\netcoreapp2.2\CarManagerServer.dll
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\bin\Debug\netcoreapp2.2\CarManagerServer.pdb
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.csprojAssemblyReference.cache
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.csproj.CoreCompileInputs.cache
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.RazorAssemblyInfo.cache
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.RazorAssemblyInfo.cs
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.AssemblyInfoInputs.cache
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.AssemblyInfo.cs
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.RazorTargetAssemblyInfo.cache
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.dll
+C:\Users\asalehzada\Desktop\CarManager\CarManagerServer\obj\Debug\netcoreapp2.2\CarManagerServer.pdb

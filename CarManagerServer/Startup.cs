@@ -25,9 +25,10 @@ namespace CarManagerServer
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddSingleton<IConfiguration>(Configuration);
             var registryDbPath = Configuration["ConnectionStrings:DefaultConnection"];
-
+            Console.WriteLine(registryDbPath);
             services.AddDbContext<DefaultDb>(options => options.UseSqlite(registryDbPath));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -45,11 +46,13 @@ namespace CarManagerServer
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller}/{action=Index}/{id?}");
             });
+
 
             // app.Run(async (context) =>
             // {
