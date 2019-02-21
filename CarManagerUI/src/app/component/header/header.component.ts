@@ -31,5 +31,7 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit() {
     this.setButtonStyle();
+    console.log(this.router.url);
+    
   }
 }

@@ -7,7 +7,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/persons', pathMatch: 'full' },
   { path: 'cars', component: CarsComponent },
   { path: 'persons', component: PersonsComponent },
-
 ];
 
 @NgModule({
