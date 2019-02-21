@@ -6,6 +6,7 @@ import { AppComponent } from './component/app/app.component';
 import { PersonsComponent } from './component/persons/persons.component';
 import { CarsComponent } from './component/cars/cars.component';
 import { HeaderComponent } from './component/header/header.component';
+import { AddCarComponent } from "./component/add-car/add-car.component";
 import { FooterComponent } from './component/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -17,7 +18,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     PersonsComponent,
     CarsComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AddCarComponent
   ],
   imports: [
     BrowserModule,

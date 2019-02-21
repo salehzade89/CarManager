@@ -1,0 +1,24 @@
+<form>
+  <div class="form-group">
+    <label for="carNumberInput">Car Number</label>
+    <input
+      type="text"
+      class="form-control"
+      id="carNumberInput"
+      value="{{car.number}}"
+      placeholder="Enter Number"
+    />
+  </div>
+  <div class="form-group">
+    <label for="colorInput">Color</label>
+    <input
+      type="text"
+      class="form-control"
+      id="colorInput"
+      value={{car.color}}
+      placeholder="Enter Color"
+    />
+  </div>
+  <button type="button" class="btn btn-primary">Save</button>
+  <button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
+</form>

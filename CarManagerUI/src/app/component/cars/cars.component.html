@@ -1,7 +1,14 @@
-<ul class="list-group">
-  <li class="list-group-item d-flex" *ngFor="let car of cars">
-    Number : {{car.number}} Color : {{car.color}}
-    <button class="btn btn-primary ml-auto" type="submit"><i class="fa fa-trash"></i></button>
-    <button class="btn btn-primary ml" type="submit"><i class="fa fa-edit"></i></button>
+<ul class="list-group" *ngFor="let car of cars">
+  <li class="list-group-item d-flex" >
+    Number : {{ car.number }} Color : {{ car.color }}
+    <button  class="btn btn-primary ml-auto" type="submit">
+      <i class="fa fa-trash"></i>
+    </button>
+    <button (click)="editButtonClick(car)" class="btn btn-primary ml" type="submit">
+      <i class="fa fa-edit"></i>
+    </button>
   </li>
 </ul>
+<button type="button" (click)="editButtonClick(car)" class="btn btn-primary btn-lg btn-block">Add Car</button>
+
+<app-add-car *ngIf="form === true" [car]="car" (emitPass)="changeFormState($event)"></app-add-car>
