@@ -1,6 +1,7 @@
 <ul class="list-group">
-    <li class="list-group-item" *ngFor="let car of cars">
-       Number : {{car.number}} Color : {{car.color}}
-       <button class="btn btn-primary" type="submit"><i class="fas fa-trash"></i></button>
-    </li>
-  </ul>
+  <li class="list-group-item d-flex" *ngFor="let car of cars">
+    Number : {{car.number}} Color : {{car.color}}
+    <button class="btn btn-primary ml-auto" type="submit"><i class="fa fa-trash"></i></button>
+    <button class="btn btn-primary ml" type="submit"><i class="fa fa-edit"></i></button>
+  </li>
+</ul>
