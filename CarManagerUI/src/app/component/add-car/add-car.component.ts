@@ -20,7 +20,8 @@ export class AddCarComponent implements OnInit {
     this.emitPass.emit(false);
   }
 
-  save():void{
-    this.carService.addCar(this.carCopy).subscribe(()=>this.close());
+  async save() {
+    await this.carService.addCar(this.carCopy).toPromise();
+    this.close();
   }
 }
