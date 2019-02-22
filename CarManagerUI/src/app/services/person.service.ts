@@ -16,7 +16,9 @@ export class PersonService {
 
   public getPersons(): Observable<Person[]> {
     const url = `${this.personUrl}GetPersons`;
-    return this.http.get<Person[]>(url);
+    var res =  this.http.get<Person[]>(url);
+    console.log(res);
+    return res;
   }
 
   public addPerson(person: Person): Observable<number> {

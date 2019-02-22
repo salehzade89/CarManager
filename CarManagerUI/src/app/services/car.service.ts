@@ -34,6 +34,7 @@ export class CarService {
   public deleteCar(id: number): Observable<number> {
     const url = `${this.carUrl}DeleteCar`;
     var res = this.http.post<number>(url, id);
+  /// this.getCars();
     return res;
   }
 }

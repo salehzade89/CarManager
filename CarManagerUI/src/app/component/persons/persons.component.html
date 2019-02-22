@@ -1,7 +1,10 @@
 <ul class="list-group" *ngFor="let person of persons">
-  <li class="list-group-item d-flex" >
-     Name : {{ person.name }} Surname : {{ person.surname }} Age : {{person.age}}
-     Car : {{person.car.number}}
+  <li class="list-group-item d-flex">
+    <span>Name : {{ person.name }}</span>
+    <span>Surname : {{ person.surname }}</span>
+    <span>Age : {{ person.age }}</span>
+    <span *ngIf="person.car">Car number : {{ person.car.number }} </span>
+
     <!-- <button (click)="deleteButtonClick(car)" class="btn btn-primary ml-auto" type="submit">
       <i class="fa fa-trash"></i>
     </button>
