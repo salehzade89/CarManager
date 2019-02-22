@@ -1,0 +1,13 @@
+<ul class="list-group" *ngFor="let person of persons">
+  <li class="list-group-item d-flex" >
+     Name : {{ person.name }} Surname : {{ person.surname }} Age : {{person.age}}
+     Car : {{person.car.number}}
+    <!-- <button (click)="deleteButtonClick(car)" class="btn btn-primary ml-auto" type="submit">
+      <i class="fa fa-trash"></i>
+    </button>
+    <button (click)="editButtonClick(car)" class="btn btn-primary ml" type="submit">
+      <i class="fa fa-edit"></i>
+    </button> -->
+  </li>
+</ul>
+<!-- <button type="button" (click)="addButtonClick(car)" class="margin-top btn btn-primary btn-lg btn-block">Add Car</button> -->

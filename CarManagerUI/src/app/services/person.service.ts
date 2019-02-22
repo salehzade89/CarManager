@@ -1,14 +1,33 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { Person } from "../models/person";
+import { Observable } from "rxjs";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PersonService {
-  private carUrl = "http://localhost:5000/Person/";
+  private personUrl = "http://localhost:5000/Person/";
   constructor(private http: HttpClient) {}
+
+  public getPersons(): Observable<Person[]> {
+    const url = `${this.personUrl}GetPersons`;
+    return this.http.get<Person[]>(url);
+  }
+
+  public addPerson(person: Person): Observable<number> {
+    const url = `${this.personUrl}AddPerson`;
+    var res = this.http.post<number>(url, person);
+    return res;
+  }
+
+  public deletePerson(id: number): Observable<number> {
+    const url = `${this.personUrl}DeletePerson`;
+    var res = this.http.post<number>(url, id);
+    return res;
+  }
 }

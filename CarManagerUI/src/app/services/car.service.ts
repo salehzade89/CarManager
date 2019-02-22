@@ -15,32 +15,25 @@ export class CarService {
   private carUrl = "http://localhost:5000/Car/";
   constructor(private http: HttpClient) {}
 
-  getCars(): Observable<Car[]> {
+  public getCars(): Observable<Car[]> {
     const url = `${this.carUrl}GetCars`;
     return this.http.get<Car[]>(url);
   }
 
-  getCarById(id: number): Observable<Car> {
+  public getCarById(id: number): Observable<Car> {
     const url = `${this.carUrl}GetCarById`;
     return this.http.post<Car>(url, id);
   }
 
-  addCar(car: Car): Observable<number> {
+  public addCar(car: Car): Observable<number> {
     const url = `${this.carUrl}UpdateCar`;
     var res = this.http.post<number>(url, car);
     return res;
   }
 
-  deleteCar(id:number):Observable<number>{
+  public deleteCar(id: number): Observable<number> {
     const url = `${this.carUrl}DeleteCar`;
     var res = this.http.post<number>(url, id);
     return res;
-  }
-
-  private handleError<T>(operation = "operation", result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
   }
 }
