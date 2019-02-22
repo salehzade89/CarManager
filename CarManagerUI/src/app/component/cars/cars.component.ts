@@ -24,8 +24,14 @@ export class CarsComponent implements OnInit {
   }
 
   addButtonClick(): void {
-    this.car = { id: 0, number: "", color: "" };
+    this.car = { carId: 0, number: "", color: "" };
     this.changeFormState(true);
+  }
+
+  deleteButtonClick(car: Car): void {
+    if(this.form==true)
+    return;
+    this.carService.deleteCar(car.carId).subscribe(() => this.getCars());
   }
 
   ngOnInit() {
@@ -34,5 +40,6 @@ export class CarsComponent implements OnInit {
 
   changeFormState(state: boolean): void {
     this.form = state;
+    this.getCars();
   }
 }

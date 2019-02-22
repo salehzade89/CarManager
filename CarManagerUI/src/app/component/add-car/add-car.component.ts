@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Car } from "src/app/models/car";
-import { CarService } from 'src/app/services/car.service';
+import { CarService } from "src/app/services/car.service";
 
 @Component({
   selector: "app-add-car",
@@ -8,14 +8,19 @@ import { CarService } from 'src/app/services/car.service';
   styleUrls: ["./add-car.component.css"]
 })
 export class AddCarComponent implements OnInit {
-  constructor(carService:CarService) {}
+  constructor(private carService: CarService) {}
   @Input() car: Car;
-  @Output()emitPass: EventEmitter<boolean> = new EventEmitter<boolean>();
+  carCopy:Car;
+  @Output() emitPass: EventEmitter<boolean> = new EventEmitter<boolean>();
   ngOnInit() {
-    
+    this.carCopy={carId:this.car.carId,number:this.car.number ,color:this.car.color};
   }
 
-  close():void{
+  close(): void {
     this.emitPass.emit(false);
+  }
+
+  save():void{
+    this.carService.addCar(this.carCopy).subscribe(()=>this.close());
   }
 }

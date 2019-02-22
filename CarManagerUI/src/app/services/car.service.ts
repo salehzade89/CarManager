@@ -17,20 +17,24 @@ export class CarService {
 
   getCars(): Observable<Car[]> {
     const url = `${this.carUrl}GetCars`;
-    console.log(this.http.get<Car[]>(url));
     return this.http.get<Car[]>(url);
   }
 
-  getCarById(id:number):Observable<Car>{
+  getCarById(id: number): Observable<Car> {
     const url = `${this.carUrl}GetCarById`;
-    return this.http.post<Car>(url,id);
+    return this.http.post<Car>(url, id);
   }
 
-  addCar(car: Car): boolean {
+  addCar(car: Car): Observable<number> {
     const url = `${this.carUrl}UpdateCar`;
     var res = this.http.post<number>(url, car);
-    // if(res. !=0 )
-    return true;
+    return res;
+  }
+
+  deleteCar(id:number):Observable<number>{
+    const url = `${this.carUrl}DeleteCar`;
+    var res = this.http.post<number>(url, id);
+    return res;
   }
 
   private handleError<T>(operation = "operation", result?: T) {
