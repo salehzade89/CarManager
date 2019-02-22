@@ -22,17 +22,20 @@ public class PersonRepository
         if (person == null) return false;
 
         var carOwner = GetPersonByCarId(person.CarId);
-        if (carOwner != null && carOwner.PersonId != person.PersonId) {
+        if (carOwner != null && carOwner.PersonId != person.PersonId)
+        {
             return false;
         }
 
-        if (person.CarId != null) {
-            var carExists = _context.Cars.Any(t=> t.CarId == person.CarId);
-            if (!carExists) {
+        if (person.CarId != null)
+        {
+            var carExists = _context.Cars.Any(t => t.CarId == person.CarId);
+            if (!carExists)
+            {
                 return false;
             }
         }
-        
+
         if (person.PersonId == 0)
         {
             _context.People.Add(person);
@@ -59,14 +62,14 @@ public class PersonRepository
 
     public Person GetPersonById(int? id)
     {
-        if(id == null) return null;
+        if (id == null) return null;
         var person = _context.People.SingleOrDefault(x => x.PersonId == id);
         return person;
     }
 
     public Person GetPersonByCarId(int? id)
     {
-        if(id == null) return null;
+        if (id == null) return null;
         var person = _context.People.SingleOrDefault(x => x.CarId == id);
         return person;
     }

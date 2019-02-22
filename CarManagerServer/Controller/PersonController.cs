@@ -33,13 +33,14 @@ public class PersonController : Controller
     {
         if (!ModelState.IsValid || person == null) return 0;
 
-        if (person.PersonId != 0) {
+        if (person.PersonId != 0)
+        {
             var newPerson = person;
             var oldPerson = _dataContext.PersonRepository.GetPersonById(person.PersonId);
             oldPerson.Name = newPerson.Name;
             oldPerson.Surname = newPerson.Surname;
             oldPerson.Age = newPerson.Age;
-            oldPerson.CarId= newPerson.CarId;
+            oldPerson.CarId = newPerson.CarId;
             person = oldPerson;
         }
 

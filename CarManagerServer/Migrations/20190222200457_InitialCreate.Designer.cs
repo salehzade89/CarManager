@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManagerServer.Migrations
 {
     [DbContext(typeof(DefaultDb))]
-    [Migration("20190219112705_InitialCreate")]
+    [Migration("20190222200457_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

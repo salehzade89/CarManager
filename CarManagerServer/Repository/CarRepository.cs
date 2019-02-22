@@ -36,7 +36,7 @@ public class CarRepository
     }
     public Car GetCarById(int id)
     {
-        return _context.Cars.SingleOrDefault(x=>x.CarId==id);
+        return _context.Cars.SingleOrDefault(x => x.CarId == id);
     }
     public int DeleteCar(int id)
     {

@@ -2,7 +2,7 @@
 
 namespace CarManagerServer.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,7 @@ namespace CarManagerServer.Migrations
                     CarId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Number = table.Column<string>(nullable: true),
-                    Color = table.Column<string>(nullable: true),
-                    PersonId = table.Column<int>(nullable: true)
+                    Color = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

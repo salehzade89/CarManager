@@ -32,12 +32,12 @@ public class DataContext : IDataContext
     }
 
     #endregion
-#region Fields
+    #region Fields
     public DatabaseFacade Database { get; set; }
     public IConfiguration Configuration { get; set; }
     public IHttpContextAccessor HttpContextAccessor { get; set; }
-    
-#endregion
+
+    #endregion
 
     public DataContext(DefaultDb dbContext, IConfiguration configuration)
     {
