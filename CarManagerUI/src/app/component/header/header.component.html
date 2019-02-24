@@ -1,8 +1,17 @@
-<ul class="nav nav-pills nav-fill">
+<!-- <ul class="nav nav-pills nav-fill">
     <li (click)="personButtonClick()" class="nav-item">
         <a class="nav-link" [class.active]=" person" routerLink="persons">Persons</a>
     </li>
     <li (click)="carButtonClick()" class="nav-item">
         <a class="nav-link" [class.active]="car" routerLink="cars">Cars</a>
     </li>
-</ul>
+</ul> -->
+
+<mat-tab-group animationDuration="1500ms">
+  <mat-tab routerLink="persons" label="Persons">
+    <app-persons></app-persons>
+  </mat-tab>
+  <mat-tab routerLink="cars" label="Cars">
+    <app-cars></app-cars>
+  </mat-tab>
+</mat-tab-group>

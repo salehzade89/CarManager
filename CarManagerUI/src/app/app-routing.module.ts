@@ -5,7 +5,7 @@ import { PersonsComponent } from "./component/persons/persons.component";
 import { AddCarComponent } from "./component/add-car/add-car.component";
 
 const routes: Routes = [
-  { path: "", redirectTo: "persons", pathMatch: "full" },
+  { path: "", redirectTo: "/", pathMatch: "full" },
   { path: "cars", component: CarsComponent },
   { path: "persons", component: PersonsComponent },
   { path: "add-car", component: AddCarComponent }

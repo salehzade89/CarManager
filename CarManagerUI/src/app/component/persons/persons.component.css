@@ -1,18 +1,35 @@
 span {
   margin-left: 10px;
 }
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;
 }
+
 table {
   width: 100%;
 }
+
 .button-col {
   display: flex;
   justify-content: flex-end;
 }
+
 .mat-column-button {
   flex: 0 0 100px !important;
 }
 
+.mat-elevation-z8 {
+  margin-top: 25px;
+  padding-top: 10px;
+}
+
+.md-fab-bottom-right {
+  top: 20px !important;
+  right: 20px !important;
+  bottom: auto !important;
+  left: auto !important;
+  position: fixed !important;
+  text-decoration: none !important;
+}

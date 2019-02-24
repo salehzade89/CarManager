@@ -10,10 +10,17 @@ import { AddCarComponent } from "./component/add-car/add-car.component";
 import { FooterComponent } from "./component/footer/footer.component";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
-import { FormsModule,ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatTableModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from "@angular/material";
-
+import {
+  MatTableModule,
+  MatTabsModule,
+  MatPaginatorModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatInputModule
+} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -27,20 +34,24 @@ import { MatTableModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule,
   imports: [
     BrowserModule,
     FormsModule,
+    MatTabsModule,
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatPaginatorModule,
     MatCheckboxModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule
   ],
-  exports:[
+  exports: [
     MatTableModule,
-    MatFormFieldModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
