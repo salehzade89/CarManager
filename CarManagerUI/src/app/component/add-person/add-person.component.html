@@ -1,25 +1,30 @@
-<form class="example-form">
+<div>
     <mat-form-field class="example-full-width">
         <input type="text" matInput placeholder="Name" [(ngModel)]="data.name">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-        <input type="text" matInput placeholder="Surname" [(ngModel)]="data.surname">
+        <input type="text" matInput placeholder="Surname"
+            [(ngModel)]="data.surname">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-        <input type="number" min="0" max="100" matInput placeholder="Age" [(ngModel)]="data.age">
+        <input type="number" min="0" max="100" matInput placeholder="Age"
+            [(ngModel)]="data.age" [formControl]="age">
+           <mat-error *ngIf="age.invalid">{{getAgeErrorMessage()}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Car" aria-label="Car" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <input type="text" placeholder="Car" aria-label="Car" matInput
+            [formControl]="myControl" [(ngModel)]="selectedCar" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let option of filteredCars | async" [value]="option">
-            {{option.number}}
-          </mat-option>
+            <mat-option *ngFor="let option of filteredCars | async"
+                [value]="option">
+                {{option.number}}
+            </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
+    </mat-form-field>
 
-      <button mat-raised-button color="primary">Save</button>
-      <button mat-raised-button>Cancel</button>
-</form>
+    <button mat-raised-button (click)="onSaveClick()" color="primary">Save</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+</div>

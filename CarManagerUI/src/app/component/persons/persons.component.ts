@@ -51,15 +51,29 @@ export class PersonsComponent implements OnInit {
     this.getPersons();
   }
 
-  openDialog(): void {
+  openAddDialog(): void {
     const dialogRef = this.dialog.open(AddPersonComponent, {
       
-      data: {personId :0,name:'',surname:'',age:null,carId:null}
+      data: {personId :0,name:'',surname:'',age:null,carId:null,car:null}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.personService.addPerson(result);
+      if(result instanceof Person)
+        this.personService.addPerson(result).subscribe(()=>this.getPersons());
+
+    });
+  }
+
+  openEditDialog(person:Person): void {
+    const dialogRef = this.dialog.open(AddPersonComponent, {
+      data:person
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if(result instanceof Person)
+        this.personService.addPerson(result).subscribe(()=>this.getPersons());
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { FormControl, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { Car } from "src/app/models/car";
@@ -19,7 +19,7 @@ export class AddPersonComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Person
   ) {}
   cars: Car[];
-
+  selectedCar:Car;
   myControl = new FormControl();
   filteredCars: Observable<Car[]>;
 
@@ -45,7 +45,26 @@ export class AddPersonComponent implements OnInit {
     );
   }
 
+  age = new FormControl('', [Validators.required, Validators.pattern("^([1-9][0-9]?|)$")]);
+
+  getAgeErrorMessage() {
+    return this.age.hasError('required') ? 'You must enter a value' :
+        this.age.hasError('pattern') ? 'Not a valid age' :
+            '';
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onSaveClick():void{
+    if(this.selectedCar instanceof Car)
+    {
+      this.data.carId=this.selectedCar.carId;
+    }
+    else if(typeof this.selectedCar==="undefined")
+    {
+      this.dialogRef.close(this.data);
+    }
   }
 }

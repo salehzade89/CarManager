@@ -38,7 +38,7 @@
             type="submit">
             <i class="fa fa-trash fa-lg"></i>
           </button>
-          <button class="mat-button" type="submit">
+          <button (click)="openEditDialog(person)" class="mat-button" type="submit">
             <i class="fa fa-edit fa-lg"></i>
           </button>
         </div>
@@ -50,7 +50,7 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
-  <button class="md-fab-bottom-right" (click)="openDialog()" mat-fab color="primary"><i class="fa
+  <button class="md-fab-bottom-right" (click)="openAddDialog()" mat-fab color="primary"><i class="fa
       fa-plus"></i></button>
 </div>
 
