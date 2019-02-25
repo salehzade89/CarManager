@@ -49,22 +49,21 @@ export class AddPersonComponent implements OnInit {
 
   getAgeErrorMessage() {
     return this.age.hasError('required') ? 'You must enter a value' :
-        this.age.hasError('pattern') ? 'Not a valid age' :
-            '';
+        this.age.hasError('pattern') ? 'Not a valid age' : '';
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  onSaveClick():void{
-    if(this.selectedCar instanceof Car)
-    {
-      this.data.carId=this.selectedCar.carId;
-    }
-    else if(typeof this.selectedCar==="undefined")
-    {
-      this.dialogRef.close(this.data);
-    }
-  }
+  // onSaveClick():void{
+  //   if(this.selectedCar instanceof Car)
+  //   {
+  //     this.data.carId=this.selectedCar.carId;
+  //   }
+  //   else if(typeof this.selectedCar==="undefined")
+  //   {
+  //     this.dialogRef.close(this.data);
+  //   }
+  //}
 }

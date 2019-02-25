@@ -5,6 +5,6 @@ export class Person {
     name: string;
     surname: string;
     age: number;
-    carId: number;
-    car:Car;
+    carId?: number;
+    car?:Car;
 }

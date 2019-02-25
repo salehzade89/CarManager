@@ -4,6 +4,7 @@ import { Person } from "src/app/models/person";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MatTableDataSource, MatPaginator } from "@angular/material";
 import { AddPersonComponent } from '../add-person/add-person.component';
+import { Car } from 'src/app/models/car';
 
 @Component({
   selector: "app-persons",
@@ -54,14 +55,19 @@ export class PersonsComponent implements OnInit {
   openAddDialog(): void {
     const dialogRef = this.dialog.open(AddPersonComponent, {
       
-      data: {personId :0,name:'',surname:'',age:null,carId:null,car:null}
+      data: new Person(),//{personId :0,name:'',surname:'',age:null,carId:null,car:Car}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if(result instanceof Person)
-        this.personService.addPerson(result).subscribe(()=>this.getPersons());
-
+      {
+        if(result.car instanceof Car)
+        {
+          result.carId = result.car.carId;
+          this.personService.addPerson(result).subscribe(()=>this.getPersons());
+        }
+      }
     });
   }
 
