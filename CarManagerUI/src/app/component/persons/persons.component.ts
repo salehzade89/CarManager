@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { PersonService } from "src/app/services/person.service";
 import { Person } from "src/app/models/person";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MatTableDataSource, MatPaginator } from "@angular/material";
+import { AddPersonComponent } from '../add-person/add-person.component';
 
 @Component({
   selector: "app-persons",
   templateUrl: "./persons.component.html",
   styleUrls: ["./persons.component.css"]
 })
+
 export class PersonsComponent implements OnInit {
   displayedColumns: string[] = [
     "personId",
@@ -20,7 +23,7 @@ export class PersonsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private personService: PersonService) {}
+  constructor(private personService: PersonService, public dialog: MatDialog) {}
   persons: Person[];
   form: boolean;
   person: Person;
@@ -30,8 +33,14 @@ export class PersonsComponent implements OnInit {
     this.personService
       .getPersons()
       .subscribe(persons => (this.dataSource.data = persons));
-    console.log(this.persons);
-    this.dataSource = new MatTableDataSource<Person>(this.persons);
+      this.dataSource = new MatTableDataSource<Person>(this.persons);
+      this.dataSource.paginator = this.paginator;
+  }
+
+  deleteButtonClick(person: Person): void {
+    this.personService
+      .deletePerson(person.personId)
+      .subscribe(() => this.getPersons());
   }
 
   applyFilter(filterValue: string) {
@@ -40,6 +49,17 @@ export class PersonsComponent implements OnInit {
 
   ngOnInit() {
     this.getPersons();
-    this.dataSource.paginator = this.paginator;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddPersonComponent, {
+      
+      data: {personId :0,name:'',surname:'',age:null,carId:null}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.personService.addPerson(result);
+    });
   }
 }

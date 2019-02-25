@@ -17,10 +17,14 @@ import {
   MatTabsModule,
   MatPaginatorModule,
   MatButtonModule,
+  MatAutocompleteModule,
+  MatOptionModule,
+  MatDialogModule,
   MatCheckboxModule,
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
+import { AddPersonComponent } from './component/add-person/add-person.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +33,12 @@ import {
     CarsComponent,
     HeaderComponent,
     FooterComponent,
-    AddCarComponent
+    AddCarComponent,
+    AddPersonComponent
   ],
   imports: [
     BrowserModule,
+    MatDialogModule,
     FormsModule,
     MatTabsModule,
     MatTableModule,
@@ -43,6 +49,8 @@ import {
     MatPaginatorModule,
     MatCheckboxModule,
     AppRoutingModule,
+    MatAutocompleteModule,
+    MatOptionModule,
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule
@@ -51,9 +59,13 @@ import {
     MatTableModule,
     MatPaginatorModule,
     MatTabsModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatDialogModule,
     MatFormFieldModule
   ],
   providers: [],
+  entryComponents: [PersonsComponent, AddPersonComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,0 +1,25 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput placeholder="Name" [(ngModel)]="data.name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput placeholder="Surname" [(ngModel)]="data.surname">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input type="number" min="0" max="100" matInput placeholder="Age" [(ngModel)]="data.age">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Car" aria-label="Car" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredCars | async" [value]="option">
+            {{option.number}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Save</button>
+      <button mat-raised-button>Cancel</button>
+</form>
