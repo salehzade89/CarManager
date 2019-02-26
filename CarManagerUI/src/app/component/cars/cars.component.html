@@ -1,4 +1,56 @@
-<ul class="list-group" *ngFor="let car of cars">
+<div class="mat-elevation-z8">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)"
+      placeholder="Filter" />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="carId">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let car">{{ car.carId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef>Number</th>
+      <td mat-cell *matCellDef="let car">{{ car.number }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+      <th mat-header-cell *matHeaderCellDef>Color</th>
+      <td mat-cell *matCellDef="let car" ><span [ngStyle]="{'color': car.color}"> {{ car.color }} </span></td>
+    </ng-container>
+
+    <ng-container matColumnDef="button">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let car">
+        <div class="button-col">
+          <button (click)="deleteButtonClick(car)" class="mat-button"
+            type="submit">
+            <i class="fa fa-trash fa-lg"></i>
+          </button>
+          <button (click)="openEditDialog(car)" class="mat-button" type="submit">
+            <i class="fa fa-edit fa-lg"></i>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+  <button class="md-fab-bottom-right" (click)="openAddDialog()" mat-fab color="primary"><i class="fa
+    fa-plus"></i></button>
+
+</div>
+
+
+
+
+
+
+<!-- <ul class="list-group" *ngFor="let car of cars">
   <li class="list-group-item d-flex" >
     Number : {{ car.number }} Color : {{ car.color }}
     <button (click)="deleteButtonClick(car)" class="btn btn-primary ml-auto" type="submit">
@@ -11,4 +63,4 @@
 </ul>
 <button type="button" (click)="addButtonClick(car)" class="margin-top btn btn-primary btn-lg btn-block">Add Car</button>
 
-<app-add-car *ngIf="form === true" [car]="car" (emitPass)="changeFormState($event)"></app-add-car>
+<app-add-car *ngIf="form === true" [car]="car" (emitPass)="changeFormState($event)"></app-add-car> -->

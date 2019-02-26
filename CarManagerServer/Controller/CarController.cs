@@ -15,6 +15,12 @@ public class CarController : Controller
     {
         return _dataContext.CarRepository.GetAllCars().ToArray();
     }
+    [HttpGet]
+    [HttpPost]
+    public Car[] GetEmptyCars()
+    {
+        return _dataContext.CarRepository.GetEmptyCars().ToArray();
+    }
 
     [HttpPost]
     public int UpdateCar([FromBody]Car car)

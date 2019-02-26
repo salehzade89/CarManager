@@ -1,5 +1,11 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { FormControl, Validators } from "@angular/forms";
+import {
+  FormControl,
+  Validators,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors
+} from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { Car } from "src/app/models/car";
@@ -19,13 +25,14 @@ export class AddPersonComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Person
   ) {}
   cars: Car[];
-  selectedCar:Car;
-  myControl = new FormControl();
+  selectedCar: Car;
+  myControl = new FormControl("");
   filteredCars: Observable<Car[]>;
 
   ngOnInit() {
-    this.carService.getCars().subscribe(cars => (this.cars = cars));
-
+    this.selectedCar = this.data.car;
+    this.carService.getEmptyCars().subscribe(cars => (this.cars = cars));
+    this.myControl.setValidators(this.carValidator.bind(this));
     this.filteredCars = this.myControl.valueChanges.pipe(
       startWith<string | Car>(""),
       map(value => (typeof value === "string" ? value : value.number)),
@@ -45,25 +52,60 @@ export class AddPersonComponent implements OnInit {
     );
   }
 
-  age = new FormControl('', [Validators.required, Validators.pattern("^([1-9][0-9]?|)$")]);
+  //#region Validator
+
+  ageValidator = new FormControl("", [
+    Validators.required,
+    Validators.pattern("^([1-9][0-9]?|)$")
+  ]);
 
   getAgeErrorMessage() {
-    return this.age.hasError('required') ? 'You must enter a value' :
-        this.age.hasError('pattern') ? 'Not a valid age' : '';
+    return this.ageValidator.hasError("required")
+      ? "You must enter a value"
+      : this.ageValidator.hasError("pattern")
+      ? "Not a valid age"
+      : "";
   }
 
-  onNoClick(): void {
+  nameValidator = new FormControl("Enter Name", [Validators.required]);
+
+  getNameErrorMessage() {
+    return this.nameValidator.hasError("required")
+      ? "You must enter a value"
+      : "";
+  }
+
+  //carVal = new FormControl("", [carValidator(this.cars)]);
+
+  //#endregion
+
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
-  // onSaveClick():void{
-  //   if(this.selectedCar instanceof Car)
-  //   {
-  //     this.data.carId=this.selectedCar.carId;
-  //   }
-  //   else if(typeof this.selectedCar==="undefined")
-  //   {
-  //     this.dialogRef.close(this.data);
-  //   }
-  //}
+  onSaveClick(): void {
+    this.data.car = this.selectedCar;
+    this.dialogRef.close(this.data);
+  }
+
+  carValidator() : ValidationErrors | null {
+    const cars = this.cars || [];
+    const selectedCar = this.selectedCar;
+
+    if (selectedCar == null) {
+      return null;
+    }
+
+    if (selectedCar.carId == 0) {
+      return { carValidator: true };
+    }
+
+    if (!cars.some(t => t.carId == selectedCar.carId)) {
+      return { carValidator: true };
+    }
+
+    return null;
+  }
+
 }
+

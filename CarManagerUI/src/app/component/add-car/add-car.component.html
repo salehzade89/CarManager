@@ -1,5 +1,19 @@
-<div class="main">
-  
+<div>
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput placeholder="Number" [(ngModel)]="data.number">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input type="color" matInput placeholder="Color"
+            [(ngModel)]="data.color">
+    </mat-form-field>
+
+    <button mat-raised-button [mat-dialog-close]="data" class="save-button" color="primary">Save</button>
+    <button mat-raised-button (click)="onNoClick()" >Cancel</button>
+</div>
+
+
+<!-- <div class="main">
   <div class="form-group">
     <label for="carNumberInput">Car Number</label>
     <input
@@ -24,4 +38,4 @@
 
   <button type="button" (click)="save()" class="btn btn-primary">Save</button>
   <button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
-</div>
+</div> -->

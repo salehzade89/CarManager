@@ -1,6 +1,6 @@
 <div>
     <mat-form-field class="example-full-width">
-        <input type="text" matInput placeholder="Name" [(ngModel)]="data.name">
+        <input type="text" matInput [formControl]="nameValidator" placeholder="Name*" [(ngModel)]="data.name">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
@@ -9,9 +9,9 @@
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-        <input type="number" min="0" max="100" matInput placeholder="Age"
-            [(ngModel)]="data.age" [formControl]="age">
-           <mat-error *ngIf="age.invalid">{{getAgeErrorMessage()}}</mat-error>
+        <input type="number" min="0" max="100" matInput placeholder="Age*"
+            [(ngModel)]="data.age" [formControl]="ageValidator">
+           <mat-error *ngIf="ageValidator.invalid">{{getAgeErrorMessage()}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
@@ -23,8 +23,9 @@
                 {{option.number}}
             </mat-option>
         </mat-autocomplete>
+        <mat-error *ngIf="myControl.invalid">Select correct car</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button [mat-dialog-close]="data" class="save-button" color="primary">Save</button>
-    <button mat-raised-button (click)="onNoClick()" >Cancel</button>
+    <button mat-raised-button [disabled]="(ageValidator.invalid || nameValidator.invalid || myControl.invalid)" (click)="onCancelClick()" class="save-button" color="primary">Save</button>
+    <button mat-raised-button (click)="onCancelClick()" >Cancel</button>
 </div>

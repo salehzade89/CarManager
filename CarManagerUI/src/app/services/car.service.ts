@@ -25,6 +25,11 @@ export class CarService {
     return this.http.post<Car>(url, id);
   }
 
+  public getEmptyCars():Observable<Car[]>{
+    const url = `${this.carUrl}GetEmptyCars`;
+    return this.http.get<Car[]>(url);
+  }
+
   public addCar(car: Car): Observable<number> {
     const url = `${this.carUrl}UpdateCar`;
     var res = this.http.post<number>(url, car);

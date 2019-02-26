@@ -16,6 +16,12 @@ public class CarRepository
         return cars;
     }
 
+    public IEnumerable<Car> GetEmptyCars()
+    {
+        IEnumerable<Car> cars = _context.Cars.Where(x=> _context.People.SingleOrDefault(y=>y.CarId == x.CarId)==null);
+        return cars;
+    }
+
     public Car GetCarById(int? id)
     {
         return _context.Cars.Find(id);
