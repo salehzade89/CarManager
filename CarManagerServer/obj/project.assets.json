@@ -12416,30 +12416,30 @@
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
-      "Microsoft.EntityFrameworkCore.Design >= 2.2.2",
+      "Microsoft.EntityFrameworkCore.Design",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.2.2",
       "Microsoft.NETCore.App >= 2.2.0",
       "Newtonsoft.Json >= 12.0.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\asalehzada\\.nuget\\packages\\": {},
+    "C:\\Users\\Salehzadeh Alim\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\asalehzada\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
+      "projectUniqueName": "C:\\Users\\Salehzadeh Alim\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
       "projectName": "CarManagerServer",
-      "projectPath": "C:\\Users\\asalehzada\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
-      "packagesPath": "C:\\Users\\asalehzada\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\asalehzada\\Desktop\\CarManager\\CarManagerServer\\obj\\",
+      "projectPath": "C:\\Users\\Salehzadeh Alim\\Desktop\\CarManager\\CarManagerServer\\CarManagerServer.csproj",
+      "packagesPath": "C:\\Users\\Salehzadeh Alim\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Salehzadeh Alim\\Desktop\\CarManager\\CarManagerServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\asalehzada\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Salehzadeh Alim\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
@@ -12474,7 +12474,7 @@
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "target": "Package",
-            "version": "[2.2.2, )"
+            "version": "(, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
