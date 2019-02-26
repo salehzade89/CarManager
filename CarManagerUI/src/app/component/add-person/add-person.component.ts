@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from "@angular/core";
 import {
   FormControl,
   Validators,
-  ValidatorFn,
   AbstractControl,
   ValidationErrors
 } from "@angular/forms";
@@ -25,14 +24,28 @@ export class AddPersonComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Person
   ) {}
   cars: Car[];
-  selectedCar: Car;
-  myControl = new FormControl("");
+  myControl = new FormControl("",[this.carValidator.bind(this)]);
   filteredCars: Observable<Car[]>;
+  selectedCar:Car;
+
+  public carCtrl: FormControl = new FormControl();
+
+  public carFilterCtrl : FormControl = new FormControl();
+
+
+
+
+
+
+
+
+
+
 
   ngOnInit() {
-    this.selectedCar = this.data.car;
     this.carService.getEmptyCars().subscribe(cars => (this.cars = cars));
-    this.myControl.setValidators(this.carValidator.bind(this));
+    this.data.car=null;
+    this.myControl.updateValueAndValidity();
     this.filteredCars = this.myControl.valueChanges.pipe(
       startWith<string | Car>(""),
       map(value => (typeof value === "string" ? value : value.number)),
@@ -75,7 +88,6 @@ export class AddPersonComponent implements OnInit {
       : "";
   }
 
-  //carVal = new FormControl("", [carValidator(this.cars)]);
 
   //#endregion
 
@@ -84,28 +96,36 @@ export class AddPersonComponent implements OnInit {
   }
 
   onSaveClick(): void {
-    this.data.car = this.selectedCar;
     this.dialogRef.close(this.data);
   }
 
-  carValidator() : ValidationErrors | null {
+  carValidator(control: AbstractControl) : ValidationErrors | null {
     const cars = this.cars || [];
-    const selectedCar = this.selectedCar;
 
-    if (selectedCar == null) {
+    if (control.value == "" || typeof this.data.car == 'undefined') {
+      this.data.carId=null;
       return null;
     }
 
-    if (selectedCar.carId == 0) {
-      return { carValidator: true };
+    let car = <Car>control.value;
+
+    if (car instanceof Object){
+      this.data.carId=car.carId;
+      return null;
+    }
+    else{
+      car = cars.find(x=>x.number==control.value)
+      if (car instanceof Object){
+        this.data.carId=car.carId;
+        return null;
+      }
+      return { carValidator: "" };
     }
 
-    if (!cars.some(t => t.carId == selectedCar.carId)) {
-      return { carValidator: true };
-    }
+    // if (!cars.some(t => t.number == control.value)) {
+    //   return { carValidator: true };
+    // }
 
     return null;
   }
-
 }
-

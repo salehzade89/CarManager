@@ -3,15 +3,15 @@ import { PersonService } from "src/app/services/person.service";
 import { Person } from "src/app/models/person";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MatTableDataSource, MatPaginator } from "@angular/material";
-import { AddPersonComponent } from '../add-person/add-person.component';
-import { Car } from 'src/app/models/car';
+import { AddPersonComponent } from "../add-person/add-person.component";
+import { Car } from "src/app/models/car";
+import { CarService } from "src/app/services/car.service";
 
 @Component({
   selector: "app-persons",
   templateUrl: "./persons.component.html",
   styleUrls: ["./persons.component.css"]
 })
-
 export class PersonsComponent implements OnInit {
   displayedColumns: string[] = [
     "personId",
@@ -24,8 +24,13 @@ export class PersonsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private personService: PersonService, public dialog: MatDialog) {}
+  constructor(
+    private carService: CarService,
+    private personService: PersonService,
+    public dialog: MatDialog
+  ) {}
   persons: Person[];
+  // cars:Cars
   form: boolean;
   person: Person;
   dataSource = new MatTableDataSource();
@@ -34,8 +39,6 @@ export class PersonsComponent implements OnInit {
     this.personService
       .getPersons()
       .subscribe(persons => (this.dataSource.data = persons));
-      this.dataSource = new MatTableDataSource<Person>(this.persons);
-      this.dataSource.paginator = this.paginator;
   }
 
   deleteButtonClick(person: Person): void {
@@ -50,55 +53,41 @@ export class PersonsComponent implements OnInit {
 
   ngOnInit() {
     this.getPersons();
+    this.dataSource = new MatTableDataSource<Person>(this.persons);
+    this.dataSource.paginator = this.paginator;
   }
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(AddPersonComponent, {
-      width:"450px",
-      data: new Person(),//{personId :0,name:'',surname:'',age:null,carId:null,car:Car}
+      width: "450px",
+      data: new Person()
     });
 
-    // dialogRef.beforeClose().subscribe(result =>{
-    //   if(result instanceof Person)
-    //   {
-    //     let car =result.car as Car;
-    //     if(!(car instanceof Car))
-    //     {
-    //       console.log("error");
-    //       dialogRef.disableClose=true;
-    //     }
-    //   }
-    // });
-
-    dialogRef.afterClosed().subscribe(()=> {
-      console.log('The dialog was closed');
-      let result = dialogRef.componentInstance.data;
-      if(result instanceof Person)
-      {
-        let car =result.car as Car;
-        if(typeof car!='undefined')
-        {
-          result.carId = result.car.carId;
-          this.personService.addPerson(result).subscribe(()=>this.getPersons());
-        }
-        else{
-          result.car=null;
-          result.carId=null;
-          this.personService.addPerson(result).subscribe(()=>this.getPersons());
-        }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+     // let result = dialogRef.componentInstance.data;
+      if (result instanceof Person) {
+        result.personId = 0;
+        result.car = null;
+        this.personService.addPerson(result).subscribe(() => this.getPersons());
       }
     });
   }
 
-  openEditDialog(person:Person): void {
+  openEditDialog(person: Person): void {
     const dialogRef = this.dialog.open(AddPersonComponent, {
-      data:person
+      width: "450px",
+      data: person
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if(result instanceof Person)
-        this.personService.addPerson(result).subscribe(()=>this.getPersons());
+    dialogRef.afterClosed().subscribe(() => {
+      let result = dialogRef.componentInstance.data;
+      if (result instanceof Person) {
+        console.log("The dialog was closed");
+        if (result instanceof Person)
+          this.personService.addPerson(result)
+            .subscribe(() => this.getPersons());
+      }
     });
   }
 }

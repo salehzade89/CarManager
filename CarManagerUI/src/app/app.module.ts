@@ -22,9 +22,11 @@ import {
   MatDialogModule,
   MatCheckboxModule,
   MatFormFieldModule,
+  MatSelectModule,
   MatInputModule
 } from "@angular/material";
 import { AddPersonComponent } from './component/add-person/add-person.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AddPersonComponent } from './component/add-person/add-person.component'
   imports: [
     BrowserModule,
     MatDialogModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
     FormsModule,
     MatTabsModule,
     MatTableModule,

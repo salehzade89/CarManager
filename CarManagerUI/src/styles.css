@@ -6,5 +6,5 @@ body {
 }
 
 button{
-  outline: none;
+  outline: none!important;
 }
