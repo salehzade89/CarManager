@@ -1,14 +1,14 @@
 import {
   Component,
   OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  Inject
+  Inject,
+  HostListener
 } from "@angular/core";
 import { Car } from "src/app/models/car";
-import { CarService } from "src/app/services/car.service";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { FormControl, Validators } from '@angular/forms';
+import { CommonService } from 'src/app/services/common.service';
+
 
 @Component({
   selector: "app-add-car",
@@ -17,7 +17,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 })
 export class AddCarComponent implements OnInit {
   constructor(
-    private carService: CarService,
+    private commonService: CommonService,
     public dialogRef: MatDialogRef<AddCarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Car
   ) {}
@@ -25,7 +25,13 @@ export class AddCarComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  @Output() emitPass: EventEmitter<boolean> = new EventEmitter<boolean>();
   ngOnInit() {}
+
+  numberValidator = new FormControl("Enter car number", [Validators.required]);
+
+  getNameErrorMessage() {
+    return this.numberValidator.hasError("required")
+      ? "You must enter a value"
+      : "";
+  }
 }

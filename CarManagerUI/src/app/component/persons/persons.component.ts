@@ -4,8 +4,8 @@ import { Person } from "src/app/models/person";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { MatTableDataSource, MatPaginator } from "@angular/material";
 import { AddPersonComponent } from "../add-person/add-person.component";
-import { Car } from "src/app/models/car";
 import { CarService } from "src/app/services/car.service";
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: "app-persons",
@@ -22,18 +22,22 @@ export class PersonsComponent implements OnInit {
     "button"
   ];
 
+
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private carService: CarService,
+    private commonService:CommonService,
     private personService: PersonService,
     public dialog: MatDialog
-  ) {}
+  ) { }
   persons: Person[];
-  // cars:Cars
   form: boolean;
   person: Person;
   dataSource = new MatTableDataSource();
+
 
   getPersons(): void {
     this.personService
@@ -55,6 +59,10 @@ export class PersonsComponent implements OnInit {
     this.getPersons();
     this.dataSource = new MatTableDataSource<Person>(this.persons);
     this.dataSource.paginator = this.paginator;
+
+    this.commonService.change.subscribe(()=>{
+      this.getPersons();
+    })
   }
 
   openAddDialog(): void {
@@ -65,28 +73,42 @@ export class PersonsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("The dialog was closed");
-     // let result = dialogRef.componentInstance.data;
       if (result instanceof Person) {
-        result.personId = 0;
-        result.car = null;
+        if (typeof result.car == 'undefined') {
+          result.personId = 0;
+          result.car = null;
+        }
+        else {
+          result.carId = result.car.carId;
+        }
         this.personService.addPerson(result).subscribe(() => this.getPersons());
       }
     });
   }
 
   openEditDialog(person: Person): void {
+    let copyPerson = { personId: person.personId, name: person.name, surname: person.surname, car: person.car  , age:person.age}
+
     const dialogRef = this.dialog.open(AddPersonComponent, {
       width: "450px",
-      data: person
+      data: copyPerson
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      let result = dialogRef.componentInstance.data;
-      if (result instanceof Person) {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result instanceof Object) {
+
         console.log("The dialog was closed");
-        if (result instanceof Person)
-          this.personService.addPerson(result)
-            .subscribe(() => this.getPersons());
+        if (typeof result.car == 'undefined' || result.car==null) {
+          result.personId = 0;
+          result.car = null;
+        }
+        else {
+          result.carId = result.car.carId;
+          result.car = null;
+        }
+        result.personId = person.personId;
+        this.personService.addPerson(result)
+          .subscribe(() => this.getPersons());
       }
     });
   }

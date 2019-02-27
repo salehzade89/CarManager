@@ -8,35 +8,31 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input type="number" min="0" max="100" matInput placeholder="Age*" [(ngModel)]="data.age" [formControl]="ageValidator">
+    <input type="number" min="0" max="100" matInput placeholder="Age*" [(ngModel)]="data.age"
+      [formControl]="ageValidator">
     <mat-error *ngIf="ageValidator.invalid">{{getAgeErrorMessage()}}</mat-error>
   </mat-form-field>
 
+  <span *ngIf="carCtrl.value">Car number : {{carCtrl.value.number}}</span>
+
+  <button *ngIf="carCtrl.value" (click)="onDeleteCar()" class="mat-button delete-car-button" type="submit">
+    <i class="fa fa-trash fa-lg"></i>
+  </button>
+
   <mat-form-field class="example-full-width">
-    <mat-select [formControl]="myControl" placeholder="Bank" #singleSelect>
+    <mat-select [formControl]="carCtrl" placeholder="Car" #singleSelect>
       <mat-option>
-        <ngx-mat-select-search [placeholderLabel]="'Find bank...'" [noEntriesFoundLabel]="'no matching bank found'"
-        [formControl]="bankFilterCtrl"></ngx-mat-select-search>
+        <ngx-mat-select-search [placeholderLabel]="'Find car...'" [noEntriesFoundLabel]="'no matching car found'"
+          [formControl]="carFilterCtrl"></ngx-mat-select-search>
       </mat-option>
-      <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
-        {{bank.name}}
+
+      <mat-option *ngFor="let car of filteredCars | async" [value]="car">
+        {{car.number}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <!-- <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Car" aria-label="Car" matInput
-            [(ngModel)]="data.car" [formControl]="myControl" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-            <mat-option *ngFor="let option of filteredCars | async"
-                [value]="option">
-                {{option.number}}
-            </mat-option>
-        </mat-autocomplete>
-        <mat-error *ngIf="myControl.invalid">Select correct car</mat-error>
-    </mat-form-field> -->
-
-  <button mat-raised-button [disabled]="(ageValidator.invalid || nameValidator.invalid || myControl.invalid)" (click)="onCancelClick()"
+  <button mat-raised-button [disabled]="(ageValidator.invalid || nameValidator.invalid)" [mat-dialog-close]="data"
     class="save-button" color="primary">Save</button>
   <button mat-raised-button (click)="onCancelClick()">Cancel</button>
 </div>

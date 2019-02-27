@@ -62,6 +62,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
   exports: [
     MatTableModule,
     MatPaginatorModule,
+    NgxMatSelectSearchModule,
+    MatSelectModule,
     MatTabsModule,
     MatAutocompleteModule,
     MatOptionModule,

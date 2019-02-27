@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, HostListener } from "@angular/core";
 import { CarService } from "../../services/car.service";
 import { Car } from "src/app/models/car";
 import { MatPaginator, MatDialog, MatTableDataSource } from '@angular/material';
 import { AddCarComponent } from '../add-car/add-car.component';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: "app-cars",
@@ -10,7 +11,7 @@ import { AddCarComponent } from '../add-car/add-car.component';
   styleUrls: ["./cars.component.css"]
 })
 export class CarsComponent implements OnInit {
-  constructor(private carService: CarService , public dialog: MatDialog) {}
+  constructor(private carService: CarService ,private commonService:CommonService, public dialog: MatDialog) {}
   cars: Car[];
   form: boolean;
   car: Car;
@@ -46,6 +47,7 @@ export class CarsComponent implements OnInit {
 
   deleteButtonClick(car: Car): void {
     this.carService.deleteCar(car.carId).subscribe(() => this.getCars());
+    this.click();
   }
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class CarsComponent implements OnInit {
   openAddDialog(): void {
     const dialogRef = this.dialog.open(AddCarComponent, {
       width:"450px",
-      data: new Car(),//{personId :0,name:'',surname:'',age:null,carId:null,car:Car}
+      data: new Car(),
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -65,6 +67,11 @@ export class CarsComponent implements OnInit {
         this.carService.addCar(result).subscribe(()=>this.getCars());
       }
     });
+  }
+
+  @HostListener('click')
+  click() {
+    this.commonService.toggle();
   }
 
   openEditDialog(car:Car): void {

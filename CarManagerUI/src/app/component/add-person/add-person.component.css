@@ -11,3 +11,6 @@
 .save-button{
     margin-right: 10px;
 }
+.delete-car-button{
+    justify-content: flex-end;
+}

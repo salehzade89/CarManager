@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from './../../../environments/environment';
+import { MatSelectSearchVersion } from 'ngx-mat-select-search';
 
 
 @Component({
@@ -9,4 +10,5 @@ import { environment } from './../../../environments/environment';
 })
 export class AppComponent {
   title = 'Car Manager';
+  matSelectSearchVersion = MatSelectSearchVersion;
 }

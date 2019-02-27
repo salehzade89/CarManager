@@ -1,15 +1,13 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
 import {
   FormControl,
-  Validators,
-  AbstractControl,
-  ValidationErrors
+  Validators
 } from "@angular/forms";
-import { Observable } from "rxjs";
-import { map, startWith } from "rxjs/operators";
+import { ReplaySubject, Subject } from "rxjs";
+import { takeUntil, take } from "rxjs/operators";
 import { Car } from "src/app/models/car";
 import { CarService } from "src/app/services/car.service";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA, MatSelect } from "@angular/material";
 import { Person } from "src/app/models/person";
 
 @Component({
@@ -17,52 +15,76 @@ import { Person } from "src/app/models/person";
   templateUrl: "./add-person.component.html",
   styleUrls: ["./add-person.component.css"]
 })
-export class AddPersonComponent implements OnInit {
+
+export class AddPersonComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private carService: CarService,
     public dialogRef: MatDialogRef<AddPersonComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Person
-  ) {}
+  ) { }
+
   cars: Car[];
-  myControl = new FormControl("",[this.carValidator.bind(this)]);
-  filteredCars: Observable<Car[]>;
-  selectedCar:Car;
 
   public carCtrl: FormControl = new FormControl();
+  public carFilterCtrl: FormControl = new FormControl();
+  public filteredCars: ReplaySubject<Car[]> = new ReplaySubject<Car[]>(1);
 
-  public carFilterCtrl : FormControl = new FormControl();
-
-
-
-
-
-
-
-
-
-
+  @ViewChild('singleSelect') singleSelect: MatSelect;
+  protected _onDestroy = new Subject<void>();
 
   ngOnInit() {
     this.carService.getEmptyCars().subscribe(cars => (this.cars = cars));
-    this.data.car=null;
-    this.myControl.updateValueAndValidity();
-    this.filteredCars = this.myControl.valueChanges.pipe(
-      startWith<string | Car>(""),
-      map(value => (typeof value === "string" ? value : value.number)),
-      map(number => (number ? this._filter(number) : this.cars))
+
+    this.carCtrl.setValue(this.cars);
+
+    this.filteredCars.next(this.cars);
+
+    this.carFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filterCars();
+      });
+
+    this.carCtrl.setValue(this.data.car);
+  }
+
+  ngAfterViewInit() {
+    this.setInitialValue();
+  }
+
+  ngOnDestroy() {
+    this.data.car = this.carCtrl.value;
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+  protected setInitialValue() {
+    this.filteredCars
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.singleSelect.compareWith = (a: Car, b: Car) => a && b && a.carId === b.carId;
+      });
+  }
+
+  protected filterCars() {
+    if (!this.cars) {
+      return;
+    }
+    let search = this.carFilterCtrl.value;
+    if (!search) {
+      this.filteredCars.next(this.cars.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredCars.next(
+      this.cars.filter(car => car.number.toLowerCase().indexOf(search) > -1)
     );
   }
 
-  displayFn(car?: Car): string | undefined {
-    return car ? car.number : undefined;
-  }
-
-  private _filter(number: string): Car[] {
-    const filterValue = number.toLowerCase();
-
-    return this.cars.filter(
-      option => option.number.toLowerCase().indexOf(filterValue) === 0
-    );
+  onDeleteCar() {
+    this.carCtrl.setValue(null);
+    this.data.car = null;
   }
 
   //#region Validator
@@ -76,8 +98,8 @@ export class AddPersonComponent implements OnInit {
     return this.ageValidator.hasError("required")
       ? "You must enter a value"
       : this.ageValidator.hasError("pattern")
-      ? "Not a valid age"
-      : "";
+        ? "Not a valid age"
+        : "";
   }
 
   nameValidator = new FormControl("Enter Name", [Validators.required]);
@@ -88,44 +110,9 @@ export class AddPersonComponent implements OnInit {
       : "";
   }
 
-
   //#endregion
 
   onCancelClick(): void {
     this.dialogRef.close();
-  }
-
-  onSaveClick(): void {
-    this.dialogRef.close(this.data);
-  }
-
-  carValidator(control: AbstractControl) : ValidationErrors | null {
-    const cars = this.cars || [];
-
-    if (control.value == "" || typeof this.data.car == 'undefined') {
-      this.data.carId=null;
-      return null;
-    }
-
-    let car = <Car>control.value;
-
-    if (car instanceof Object){
-      this.data.carId=car.carId;
-      return null;
-    }
-    else{
-      car = cars.find(x=>x.number==control.value)
-      if (car instanceof Object){
-        this.data.carId=car.carId;
-        return null;
-      }
-      return { carValidator: "" };
-    }
-
-    // if (!cars.some(t => t.number == control.value)) {
-    //   return { carValidator: true };
-    // }
-
-    return null;
   }
 }
